@@ -146,6 +146,9 @@ for c in cam_list:
         cam[c].setIspScale(1, args.isp_downscale)
         #cam[c].initialControl.setManualFocus(85) # TODO
         cam[c].isp.link(xout[c].input)
+        cam[c].initialControl.setSharpness(0)     # range: 0..4, default: 1
+        cam[c].initialControl.setLumaDenoise(0)   # range: 0..4, default: 1
+        cam[c].initialControl.setChromaDenoise(4) # range: 0..4, default: 1
     else:
         cam[c] = pipeline.createMonoCamera()
         cam[c].setResolution(mono_res_opts[args.mono_resolution])
@@ -201,11 +204,11 @@ with dai.Device(pipeline) as device:
     LENS_STEP = 3
 
     # Defaults and limits for manual focus/exposure controls
-    lensPos = 150
+    lensPos = 60
     lensMin = 0
     lensMax = 255
 
-    expTime = 20000
+    expTime = 10000
     expMin = 1
     expMax = 33000
 
@@ -229,6 +232,7 @@ with dai.Device(pipeline) as device:
     control = 'none'
 
     print("Cam:", *['     ' + c.ljust(8) for c in cam_list], "[host | capture timestamp]")
+    capture = False
 
     while True:
         for c in cam_list:
@@ -237,6 +241,12 @@ with dai.Device(pipeline) as device:
                 fps_host[c].update()
                 fps_capt[c].update(pkt.getTimestamp().total_seconds())
                 frame = pkt.getCvFrame()
+                if capture:
+                    capture=False
+                    width, height = pkt.getWidth(), pkt.getHeight()
+                    capture_file_name = ('capture_' + str(pkt.getSequenceNum()) + ".png")
+                    print("\nSaving:", capture_file_name)
+                    cv2.imwrite(capture_file_name, frame)
                 cv2.imshow(c, frame)
         print("\rFPS:",
               *["{:6.2f}|{:6.2f}".format(fps_host[c].get(), fps_capt[c].get()) for c in cam_list],
@@ -245,10 +255,11 @@ with dai.Device(pipeline) as device:
         key = cv2.waitKey(1)
         if key == ord('q'):
             break
-        elif False:  # key == ord('c'):
-            ctrl = dai.CameraControl()
-            ctrl.setCaptureStill(True)
-            controlQueue.send(ctrl)
+        elif key == ord('c'):
+            # ctrl = dai.CameraControl()
+            # ctrl.setCaptureStill(True)
+            # controlQueue.send(ctrl)
+            capture = True
         elif key == ord('t'):
             print("Autofocus trigger (and disable continuous)")
             ctrl = dai.CameraControl()

@@ -64,6 +64,8 @@ parser.add_argument('-ds', '--isp-downscale', default=1, type=int,
                     help="Downscale the ISP output by this factor")
 parser.add_argument('-rs', '--resizable-windows', action='store_true',
                     help="Make OpenCV windows resizable. Note: may introduce some artifacts")
+parser.add_argument('-fov', '--fov-measurement', action='store_true',
+                    help="Draw horizontal/vertical line on the frame for easier FOV measurement")
 args = parser.parse_args()
 
 cam_list = []
@@ -247,6 +249,12 @@ with dai.Device(pipeline) as device:
                     capture_file_name = ('capture_' + str(pkt.getSequenceNum()) + ".png")
                     print("\nSaving:", capture_file_name)
                     cv2.imwrite(capture_file_name, frame)
+
+                if args.fov_measurement:
+                    h = frame.shape[0]
+                    w = frame.shape[1]
+                    frame = cv2.line(frame, (0, int(h/2)), (w, int(h/2)), (127,255,0), 2)
+                    frame = cv2.line(frame, (int(w/2), 0), (int(w/2), h), (127,255,0), 2)
                 cv2.imshow(c, frame)
         print("\rFPS:",
               *["{:6.2f}|{:6.2f}".format(fps_host[c].get(), fps_capt[c].get()) for c in cam_list],

@@ -201,7 +201,7 @@ with dai.Device(pipeline) as device:
     controlQueue = device.getInputQueue('control')
 
     # Manual exposure/focus set step
-    EXP_STEP = 500  # us
+    EXP_STEP = 2000  # us
     ISO_STEP = 50
     LENS_STEP = 3
 
@@ -212,7 +212,7 @@ with dai.Device(pipeline) as device:
 
     expTime = 10000
     expMin = 1
-    expMax = 33000
+    expMax = 330000
 
     sensIso = 800
     sensMin = 100

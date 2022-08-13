@@ -24,6 +24,7 @@ Other controls:
 '0' - Select control: sharpness
 '[' - Select control: luma denoise
 ']' - Select control: chroma denoise
+'H' - Select control: scene mode
 
 For the 'Select control: ...' options, use these keys to modify the value:
   '-' or '_' to decrease
@@ -221,6 +222,7 @@ with dai.Device(pipeline) as device:
     awb_mode = cycle([item for name, item in vars(dai.CameraControl.AutoWhiteBalanceMode).items() if name.isupper()])
     anti_banding_mode = cycle([item for name, item in vars(dai.CameraControl.AntiBandingMode).items() if name.isupper()])
     effect_mode = cycle([item for name, item in vars(dai.CameraControl.EffectMode).items() if name.isupper()])
+    scene_mode = cycle([item for name, item in vars(dai.CameraControl.SceneMode).items() if name.isupper()])
 
     ae_comp = 0
     ae_lock = False
@@ -315,7 +317,7 @@ with dai.Device(pipeline) as device:
             ctrl = dai.CameraControl()
             ctrl.setAutoExposureLock(ae_lock)
             controlQueue.send(ctrl)
-        elif key >= 0 and chr(key) in '34567890[]':
+        elif key >= 0 and chr(key) in '34567890[]hH':
             if   key == ord('3'): control = 'awb_mode'
             elif key == ord('4'): control = 'ae_comp'
             elif key == ord('5'): control = 'anti_banding_mode'
@@ -326,6 +328,7 @@ with dai.Device(pipeline) as device:
             elif key == ord('0'): control = 'sharpness'
             elif key == ord('['): control = 'luma_denoise'
             elif key == ord(']'): control = 'chroma_denoise'
+            elif key == ord('h'): control = 'scene_mode'
             print("Selected control:", control)
         elif key in [ord('-'), ord('_'), ord('+'), ord('=')]:
             change = 0
@@ -350,6 +353,10 @@ with dai.Device(pipeline) as device:
                 eff = next(effect_mode)
                 print("Effect mode:", eff)
                 ctrl.setEffectMode(eff)
+            elif control == 'scene_mode':
+                scene = next(scene_mode)
+                print("Scene mode:", scene)
+                ctrl.setSceneMode(scene)
             elif control == 'brightness':
                 brightness = clamp(brightness + change, -10, 10)
                 print("Brightness:", brightness)

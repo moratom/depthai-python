@@ -15,7 +15,14 @@ xout.setStreamName('h265')
 # Properties
 camRgb.setBoardSocket(dai.CameraBoardSocket.RGB)
 camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_4_K)
-videoEnc.setDefaultProfilePreset(30, dai.VideoEncoderProperties.Profile.H265_MAIN)
+camRgb.setVideoSize(700, 700)
+videoEnc.setDefaultProfilePreset(30, dai.VideoEncoderProperties.Profile.MJPEG)
+videoEnc.setQuality(30)
+videoEnc.setFrameRate(15)
+# videoEnc.setLossless(False)
+# videoEnc.setKeyframeFrequency(20)
+# videoEnc.setNumBFrames(20)
+# videoEnc.setRateControlMode(dai.VideoEncoderProperties.RateControlMode.CBR)
 
 # Linking
 camRgb.video.link(videoEnc.input)

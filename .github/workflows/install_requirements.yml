@@ -22,3 +22,5 @@
          run: echo "Hello from this container!"
        - name: Test two
          run: echo "Hello from here too!!!"
+       - name: Test three
+         run: hostnamectl

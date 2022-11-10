@@ -20,7 +20,7 @@
        fail-fast: false
        matrix:
          # The same array lives in test-windows.yml, so make any updates there too.
-         test-group: [1, 2, 3]
+         container_image: [ubuntu:18.04, ubuntu:20.04, ubuntu:22.04]
 #      strategy:
 #        matrix:
 #          image_name:
@@ -29,11 +29,11 @@
 #              ubuntu:20.04,
 #            ]
      container:
-        image: ubuntu:20.04
+        image: ${{ matrix.container_image }}
      steps:
        - name: Test one
          run: echo "Hello from this container!"
        - name: Test two
-         run: echo "Hello from here ${{ matrix.test-group }} too!!!"
+         run: echo "Hello from here too!!!"
        - name: Test three
          run: cat /etc/*release*

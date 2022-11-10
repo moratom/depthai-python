@@ -9,41 +9,28 @@
     tags:
     - 'v*'
 
- ###################################
- ###################################
-
  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
  jobs:
-   test-job:
+   install_requirements-ubuntu:
      runs-on: ubuntu-latest
      strategy:
-       fail-fast: false
        matrix:
-         # The same array lives in test-windows.yml, so make any updates there too.
-         container_image: ["ubuntu:16.04", "ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04"]
-#      strategy:
-#        matrix:
-#          image_name:
-#            [
-#              ubuntu:22.04,
-#              ubuntu:20.04,
-#            ]
+         container_image: ["ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04"]
      container:
         image: ${{ matrix.container_image }}
      steps:
        - uses: actions/checkout@v3
-       - name: Test one
-         run: echo "Hello from this container!"
-       - name: Test one and a half
-         run: ls
-       - name: Pogojni
-         if: ${{ matrix.container_image == 'ubuntu:16.04' }}
-         run: echo issa me the old one
        - name: Set up Python
          run: apt-get update  -qq && apt-get -qq install python3 python3-pip sudo
-       - name: Test two minus one third
+       - name: Install requirements
          run: cd examples && python3 install_requirements.py
-       - name: Test two
-         run: echo "Hello from here too!!!"
-       - name: Test three
-         run: cat /etc/*release*
+   install_requirements-ubuntu-old:
+     runs-on: ubuntu-latest
+     container:
+        image: ubuntu:16:04
+     steps:
+       - uses: actions/checkout@v3
+       - name: Set up Python
+         run: apt-get update  -qq && apt-get -qq install python3.6 python3.6-pip sudo
+       - name: Install requirements
+         run: cd examples && python3.6 install_requirements.py

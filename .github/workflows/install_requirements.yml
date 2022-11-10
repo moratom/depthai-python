@@ -20,5 +20,5 @@
        image: ${{ matrix.container_image }}
      steps:
        - name: Install sudo
-       - run: echo "Hello from the container" 
+         run: echo "Hello from the container" 
    

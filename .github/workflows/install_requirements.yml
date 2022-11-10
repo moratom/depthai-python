@@ -35,6 +35,8 @@
        - uses: actions/checkout@v3
        - name: Test one
          run: echo "Hello from this container!"
+       - name: Test one and a half
+         run: ls
        - name: Test two
          run: echo "Hello from here too!!!"
        - name: Test three

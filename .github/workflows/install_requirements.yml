@@ -38,7 +38,7 @@
        - name: Test one and a half
          run: ls
        - name: Set up Python
-         run: apt-get update && apt-get install python3 sudo
+         run: apt-get update  -qq && apt-get -qq install python3 sudo
 #          uses: actions/setup-python@v4
 #          with:
 #            python-version: '3.10'

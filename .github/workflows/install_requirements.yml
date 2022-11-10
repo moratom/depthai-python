@@ -1,0 +1,23 @@
+ name: Test requirements installation
+
+ on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    - develop
+    tags:
+    - 'v*'
+
+ ###################################
+ ###################################
+
+ # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+ jobs:
+   test-job:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Test one
+         run: echo "Hello from here!!!"
+       - name: Test two
+         run: echo "Hello from here too!!!"

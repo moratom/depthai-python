@@ -27,7 +27,7 @@
    install_requirements-ubuntu-old:
      runs-on: ubuntu-latest
      container:
-        image: ubuntu:16:04
+        image: ubuntu:16.04
      steps:
        - uses: actions/checkout@v3
        - name: Set up Python

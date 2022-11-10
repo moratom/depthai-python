@@ -16,7 +16,8 @@
  jobs:
    test-job:
      runs-on: ubuntu-latest
-     container: ubuntu:22.04
+     container:
+       - image: ubuntu:22.04
      steps:
        - name: Test one
          run: echo "Hello from this container!"

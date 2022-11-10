@@ -16,9 +16,9 @@
  jobs:
    test-job:
      runs-on: ubuntu-latest
-     steps:
      container:
        - image: ubuntu:22.04
+     steps:
        - name: Test one
          run:  lsb_release -a
        - name: Test two

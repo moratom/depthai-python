@@ -20,8 +20,7 @@
        fail-fast: false
        matrix:
          # The same array lives in test-windows.yml, so make any updates there too.
-         # container_image: ["ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04"]
-         container_image: ["ubuntu:22.04"]
+         container_image: ["ubuntu:16.04", "ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04"]
 #      strategy:
 #        matrix:
 #          image_name:

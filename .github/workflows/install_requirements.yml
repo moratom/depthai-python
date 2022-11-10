@@ -19,6 +19,6 @@
      container: ubuntu:22.04
      steps:
        - name: Test one
-         run:  lsb_release -a
+         run: echo "Hello from this container!"
        - name: Test two
          run: echo "Hello from here too!!!"

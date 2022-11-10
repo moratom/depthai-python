@@ -16,8 +16,15 @@
  jobs:
    test-job:
      runs-on: ubuntu-latest
+     strategy:
+       matrix:
+         image_name:
+           [
+             ubuntu:22.04,
+             ubuntu:20.04
+           ]
      container:
-       - image: ubuntu:22.04
+       - image: ${{ matrix.image_name }}
      steps:
        - name: Test one
          run: echo "Hello from this container!"

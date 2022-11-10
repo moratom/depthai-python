@@ -39,8 +39,10 @@
          run: ls
        - name: Set up Python
          uses: actions/setup-python@v4
+#          with:
+#            python-version: '3.8'
        - name: Test two minus one third
-         run: cd examples && python install_requirements.py
+         run: cd examples && python3 install_requirements.py
        - name: Test two
          run: echo "Hello from here too!!!"
        - name: Test three

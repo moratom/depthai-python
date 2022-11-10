@@ -17,7 +17,9 @@
    test-job:
      runs-on: ubuntu-latest
      steps:
+     container:
+       - image: ubuntu:22.04
        - name: Test one
-         run: echo "Hello from here!!!"
+         run:  lsb_release -a
        - name: Test two
          run: echo "Hello from here too!!!"

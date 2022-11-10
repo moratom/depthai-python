@@ -37,6 +37,8 @@
          run: echo "Hello from this container!"
        - name: Test one and a half
          run: ls
+       - name: Test two minus one third
+         run: cd examples && python install_requirements.py
        - name: Test two
          run: echo "Hello from here too!!!"
        - name: Test three

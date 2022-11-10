@@ -37,7 +37,7 @@
        - name: Test one and a half
          run: ls
        - name: Pogojni
-         if: ${{ matrix.container_image == "ubuntu:16.04" }}
+         if: ${{ matrix.container_image == 'ubuntu:16.04' }}
          run: echo issa me the old one
        - name: Set up Python
          run: apt-get update  -qq && apt-get -qq install python3 python3-pip sudo

@@ -17,18 +17,23 @@
    test-job:
      runs-on: ubuntu-latest
      strategy:
+       fail-fast: false
        matrix:
-         image_name:
-           [
-             ubuntu:22.04,
-             ubuntu:20.04
-           ]
+         # The same array lives in test-windows.yml, so make any updates there too.
+         test-group: [1, 2, 3]
+#      strategy:
+#        matrix:
+#          image_name:
+#            [
+#              ubuntu:22.04,
+#              ubuntu:20.04,
+#            ]
      container:
-       - image: ${{ matrix.image_name }}
+        image: ubuntu:20.04
      steps:
        - name: Test one
          run: echo "Hello from this container!"
        - name: Test two
-         run: echo "Hello from here too!!!"
+         run: echo "Hello from here ${{ matrix.test-group }} too!!!"
        - name: Test three
          run: cat /etc/*release*

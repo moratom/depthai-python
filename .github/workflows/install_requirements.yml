@@ -28,4 +28,6 @@
          if: startsWith(matrix.container_image, 'ubuntu') == true
          run: apt-get update  -qq && apt-get -qq install sudo lsb-release
        - name: Install dependencies
-         run: bash docs/source/_static/install_dependencies.sh
+         run: |
+           sed '/udevadm control --reload-rules && sudo udevadm trigger/d' > tmp_script.sh
+           bash tmp_script.sh

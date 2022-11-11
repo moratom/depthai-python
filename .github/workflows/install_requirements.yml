@@ -22,9 +22,9 @@
        - uses: actions/checkout@v3
        - name: Install sudo
          if: startsWith(matrix.container_image, 'fedora') == true
-         run: yum update -y && yum install -y python3 python3-pip sudo
+         run: yum update -y && yum install -y python3 python3-pip sudo lsb-release
        - name: Install sudo
          if: startsWith(matrix.container_image, 'ubuntu') == true
-         run: apt-get update  -qq && apt-get -qq install sudo
+         run: apt-get update  -qq && apt-get -qq install sudo lsb-release
        - name: Install dependencies
          run: bash docs/source/_static/install_dependencies.sh

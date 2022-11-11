@@ -29,5 +29,5 @@
          run: apt-get update  -qq && apt-get -qq install sudo lsb-release
        - name: Install dependencies
          run: |
-           sed '/udevadm control --reload-rules && sudo udevadm trigger/d' > tmp_script.sh
+           sed '/udevadm control --reload-rules && sudo udevadm trigger/d' docs/source/_static/install_dependencies.sh > tmp_script.sh
            bash tmp_script.sh

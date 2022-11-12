@@ -3,11 +3,8 @@
  on:
   workflow_dispatch:
   push:
-    branches:
-    - main
-    - develop
-    tags:
-    - 'v*'
+    paths:
+      - 'docs/source/_static/install_dependencies.sh'
 
  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
  jobs:
@@ -18,9 +15,6 @@
           container_image: ["fedora:34", "fedora:35", "fedora:36", "ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04"]
      container:
        image: ${{ matrix.container_image }}
-       env:
-         TZ: America/New_York
-         DEBIAN_FRONTEND: noninteractive
      steps:
        - uses: actions/checkout@v3
        - name: Install sudo

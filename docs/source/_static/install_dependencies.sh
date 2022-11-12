@@ -175,5 +175,6 @@ elif [ -f /etc/os-release ]; then
     sudo udevadm control --reload-rules && sudo udevadm trigger
 else
     echo "ERROR: Host not supported"
+    #
     exit 99
 fi

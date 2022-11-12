@@ -31,5 +31,6 @@
          run: apt-get update  -qq && apt-get -qq install sudo lsb-release
        - name: Install dependencies
          run: |
+           ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
            sed '/udevadm control --reload-rules && sudo udevadm trigger/d' docs/source/_static/install_dependencies.sh > tmp_script.sh
            bash tmp_script.sh

@@ -5,6 +5,7 @@
   push:
     paths:
       - 'docs/source/_static/install_dependencies.sh'
+      - 'examples/install_requirements.py'
 
  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
  jobs:
@@ -12,7 +13,7 @@
      runs-on: ubuntu-latest
      strategy:
        matrix:
-          container_image: ["fedora:34", "fedora:35", "fedora:36", "ubuntu:16.04", "ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04"]
+          container_image: ["fedora:34", "fedora:35", "fedora:36", "ubuntu:18.04", "ubuntu:20.04", "ubuntu:22.04"]
      container:
        image: ${{ matrix.container_image }}
      steps:
@@ -28,3 +29,6 @@
            ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
            sed '/udevadm control --reload-rules && sudo udevadm trigger/d' docs/source/_static/install_dependencies.sh > tmp_script.sh
            bash tmp_script.sh
+       - name: Install example requirements
+         run: |
+           python3 examples/install_requirements.py

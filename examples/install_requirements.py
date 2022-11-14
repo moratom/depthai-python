@@ -189,3 +189,5 @@ if requireOpenCv and thisPlatform == "aarch64":
         SUGGESTION='echo "export OPENBLAS_CORETYPE=ARMV8" >> ~/.bashrc && source ~/.bashrc'
         print(f'{WARNING}WARNING:{LINE_CL} Need to set OPENBLAS_CORE_TYPE environment variable, otherwise opencv will fail with illegal instruction.')
         print(f'Run: {RED}{SUGGESTION}{LINE_CL}')
+        
+#
